@@ -1,0 +1,30 @@
+body {
+  background: black;
+}
+
+header {
+  height: 111px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.color-square {
+  background: green;
+  border-radius: 10px;
+  padding: 66px;
+  margin: 1.66%;
+}
+
+.square-container {
+  display: flex;
+  justify-content: center;
+  margin: 22px auto;
+  max-width: 960px;
+}
