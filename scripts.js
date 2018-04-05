@@ -1,13 +1,14 @@
 const MIN_RGB_VALUE = 0;
 const MAX_RGB_VALUE = 255;
 var targetColor;
+var correctSquare;
 var colorSquares = document.querySelectorAll('.color-square');
 var startButton = document.querySelector('.startButton');
 var difficultyButton = document.querySelector('.difficultyButton');
 var title = document.querySelector('h1');
+var correctIndicator = document.querySelector('h2');
 var header = document.querySelector('header');
 var footer = document.querySelector('footer');
-var correctSquare;
 var square0 = document.querySelector('#square0');
 var square1 = document.querySelector('#square1');
 var square2 = document.querySelector('#square2');
@@ -18,13 +19,10 @@ var bottomRow = document.querySelector('.bottom');
 var maxSquareID = 6;
 var minSquareID = 0;
 var difficultyIsHard = true;
+var gameInProgress = false;
 
-function randomizeCorrectSquare() {
-  correctSquare = Math.floor(Math.random() * ((maxSquareID) - minSquareID) + minSquareID);
-}
-
-function getRandomRGBValue() {
-  return Math.floor(Math.random() * ((MAX_RGB_VALUE + 1) - MIN_RGB_VALUE) + MIN_RGB_VALUE);
+function setTargetColor() {
+  targetColor = getRandomRGBColor();
 }
 
 function getRandomRGBColor() {
@@ -36,29 +34,26 @@ function getRandomRGBColor() {
   return RGBColor;
 }
 
-function invertRGBColor(color) {
-  for (let i = 0; i < color.length; i++) {
-    color[i] = 255 - color[i];
-  }
-  return color;
+function getRandomRGBValue() {
+  return Math.floor(Math.random() * ((MAX_RGB_VALUE + 1) - MIN_RGB_VALUE) + MIN_RGB_VALUE);
 }
 
-function parseRGBColorToCSS(color) {
-  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-}
-
-function randomizeColors() {
+function randomizeSquareColors() {
   for (let i = 0; i < colorSquares.length; i++) {
     colorSquares[i].style.background = parseRGBColorToCSS(getRandomRGBColor());
   }
 }
 
-function setTargetColor() {
-  targetColor = getRandomRGBColor();
-}
-
 function setCorrectSquareToTargetColor() {
   colorSquares[correctSquare].style.background = parseRGBColorToCSS(targetColor);
+}
+
+function randomizeCorrectSquare() {
+  correctSquare = Math.floor(Math.random() * ((maxSquareID) - minSquareID) + minSquareID);
+}
+
+function parseRGBColorToCSS(color) {
+  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 }
 
 function displayTargetColorInHeader() {
@@ -96,10 +91,11 @@ function toggleDifficulty() {
 function resetBoard() {
   setTargetColor();
   randomizeCorrectSquare();
-  randomizeColors();
+  randomizeSquareColors();
   setCorrectSquareToTargetColor();
   displayTargetColorInHeader();
   changeButtonToReset();
+  gameInProgress = true;
 }
 
 function eliminateWrongSquare(squareNumber) {
@@ -109,29 +105,42 @@ function eliminateWrongSquare(squareNumber) {
 function winGame() {
   header.style.background = parseRGBColorToCSS(targetColor);
   footer.style.background = parseRGBColorToCSS(targetColor);
-  title.innerText = 'Correct!';
+  correctIndicator.innerText = 'You Win!';
   for (let i = 0; i < colorSquares.length; i++) {
     colorSquares[i].style.background = parseRGBColorToCSS(targetColor);
   }
+  gameInProgress = false;
 }
 
 startButton.addEventListener('click', resetBoard);
 difficultyButton.addEventListener('click', toggleDifficulty);
 square0.addEventListener('click', () => {
-  checkIfGuessMatchesColor(0)
+  if (gameInProgress) {
+    checkIfGuessMatchesColor(0)
+  }
 });
 square1.addEventListener('click', () => {
-  checkIfGuessMatchesColor(1)
+  if (gameInProgress) {
+    checkIfGuessMatchesColor(1)
+  }
 });
 square2.addEventListener('click', () => {
-  checkIfGuessMatchesColor(2)
+  if (gameInProgress) {
+    checkIfGuessMatchesColor(2)
+  }
 });
 square3.addEventListener('click', () => {
-  checkIfGuessMatchesColor(3)
+  if (gameInProgress) {
+    checkIfGuessMatchesColor(3)
+  }
 });
 square4.addEventListener('click', () => {
-  checkIfGuessMatchesColor(4)
+  if (gameInProgress) {
+    checkIfGuessMatchesColor(4)
+  }
 });
 square5.addEventListener('click', () => {
-  checkIfGuessMatchesColor(5)
+  if (gameInProgress) {
+    checkIfGuessMatchesColor(5)
+  }
 });
