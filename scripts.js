@@ -2,17 +2,29 @@ const MIN_RGB_VALUE = 0;
 const MAX_RGB_VALUE = 255;
 var targetColor;
 var colorSquares = document.querySelectorAll('.color-square');
-var mainButton = document.querySelector('.button');
-var header = document.querySelector('h1');
-var square1 = document.querySelector('.square1');
-var square2 = document.querySelector('.square2');
-var square3 = document.querySelector('.square3');
-var square4 = document.querySelector('.square4');
-var square5 = document.querySelector('.square5');
-var square6 = document.querySelector('.square6');
+var startButton = document.querySelector('.startButton');
+var difficultyButton = document.querySelector('.difficultyButton');
+var title = document.querySelector('h1');
+var header = document.querySelector('header');
+var footer = document.querySelector('footer');
+var correctSquare;
+var square0 = document.querySelector('#square0');
+var square1 = document.querySelector('#square1');
+var square2 = document.querySelector('#square2');
+var square3 = document.querySelector('#square3');
+var square4 = document.querySelector('#square4');
+var square5 = document.querySelector('#square5');
+var bottomRow = document.querySelector('.bottom');
+var maxSquareID = 6;
+var minSquareID = 0;
+var difficultyIsHard = true;
+
+function randomizeCorrectSquare() {
+  correctSquare = Math.floor(Math.random() * ((maxSquareID) - minSquareID) + minSquareID);
+}
 
 function getRandomRGBValue() {
-  return Math.floor(Math.random() * ((MAX_RGB_VALUE+1) - MIN_RGB_VALUE) + MIN_RGB_VALUE);
+  return Math.floor(Math.random() * ((MAX_RGB_VALUE + 1) - MIN_RGB_VALUE) + MIN_RGB_VALUE);
 }
 
 function getRandomRGBColor() {
@@ -31,7 +43,7 @@ function invertRGBColor(color) {
   return color;
 }
 
-function parseRGBColorToCSS (color) {
+function parseRGBColorToCSS(color) {
   return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 }
 
@@ -45,36 +57,81 @@ function setTargetColor() {
   targetColor = getRandomRGBColor();
 }
 
-function setOneSquareToTargetColor() {
-  let chosenSquare = Math.floor(Math.random() * ((5+1) - 0) + 0); //Pick a number between 0 and 5 inclusive
-  colorSquares[chosenSquare].style.background = parseRGBColorToCSS(targetColor);
+function setCorrectSquareToTargetColor() {
+  colorSquares[correctSquare].style.background = parseRGBColorToCSS(targetColor);
 }
 
 function displayTargetColorInHeader() {
-  header.innerText = `${targetColor[0]}, ${targetColor[1]}, ${targetColor[2]}`;
+  title.innerText = `${targetColor[0]}, ${targetColor[1]}, ${targetColor[2]}`;
 }
 
-function checkIfGuessMatchesColor(square) {
-  let chosenColor = document.querySelector(`.${square}`).style.background;
-  alert(chosenColor);
+function checkIfGuessMatchesColor(squareNumber) {
+  if (squareNumber === correctSquare) {
+    winGame();
+  } else {
+    eliminateWrongSquare(squareNumber);
+  }
 }
 
 function changeButtonToReset() {
-  mainButton.innerText = 'Reset';
+  startButton.innerText = 'New Game';
+}
+
+function toggleDifficulty() {
+  if (difficultyIsHard) {
+    bottomRow.style.display = 'none';
+    difficultyButton.innerText = 'Hard';
+    maxSquareID = 3;
+    difficultyIsHard = false;
+  } else {
+    bottomRow.style.display = 'flex';
+    difficultyButton.innerText = 'Easy';
+    maxSquareID = 6;
+    difficultyIsHard = true;
+  }
+
+  resetBoard();
 }
 
 function resetBoard() {
   setTargetColor();
+  randomizeCorrectSquare();
   randomizeColors();
-  setOneSquareToTargetColor();
+  setCorrectSquareToTargetColor();
   displayTargetColorInHeader();
   changeButtonToReset();
 }
 
-mainButton.addEventListener('click', resetBoard);
-square1.addEventListener('click', checkIfGuessMatchesColor(square1));
-square2.addEventListener('click', checkIfGuessMatchesColor(square2));
-square3.addEventListener('click', checkIfGuessMatchesColor(square3));
-square4.addEventListener('click', checkIfGuessMatchesColor(square4));
-square5.addEventListener('click', checkIfGuessMatchesColor(square5));
-square6.addEventListener('click', checkIfGuessMatchesColor(square6));
+function eliminateWrongSquare(squareNumber) {
+  colorSquares[squareNumber].style.background = 'none';
+}
+
+function winGame() {
+  header.style.background = parseRGBColorToCSS(targetColor);
+  footer.style.background = parseRGBColorToCSS(targetColor);
+  title.innerText = 'Correct!';
+  for (let i = 0; i < colorSquares.length; i++) {
+    colorSquares[i].style.background = parseRGBColorToCSS(targetColor);
+  }
+}
+
+startButton.addEventListener('click', resetBoard);
+difficultyButton.addEventListener('click', toggleDifficulty);
+square0.addEventListener('click', () => {
+  checkIfGuessMatchesColor(0)
+});
+square1.addEventListener('click', () => {
+  checkIfGuessMatchesColor(1)
+});
+square2.addEventListener('click', () => {
+  checkIfGuessMatchesColor(2)
+});
+square3.addEventListener('click', () => {
+  checkIfGuessMatchesColor(3)
+});
+square4.addEventListener('click', () => {
+  checkIfGuessMatchesColor(4)
+});
+square5.addEventListener('click', () => {
+  checkIfGuessMatchesColor(5)
+});
