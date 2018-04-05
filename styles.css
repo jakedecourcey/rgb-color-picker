@@ -2,6 +2,15 @@ body {
   background: black;
 }
 
+button {
+  background: white;
+  border: none;
+  border-radius: 2px;
+  margin: auto;
+  padding: 15px;
+  width: 100px;
+}
+
 header {
   height: 111px;
   display: flex;
@@ -16,13 +25,14 @@ h1 {
 }
 
 .color-square {
-  background: green;
+  background: rgb(207, 242, 253);
+  border: white 1px solid;
   border-radius: 10px;
   padding: 66px;
   margin: 1.66%;
 }
 
-.square-container {
+.container {
   display: flex;
   justify-content: center;
   margin: 22px auto;
