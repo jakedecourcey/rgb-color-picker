@@ -96,6 +96,7 @@ function resetBoard() {
   displayTargetColorInHeader();
   changeButtonToReset();
   gameInProgress = true;
+  correctIndicator.innerText = '';
 }
 
 function eliminateWrongSquare(squareNumber) {
