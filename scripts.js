@@ -75,12 +75,12 @@ function changeButtonToReset() {
 function toggleDifficulty() {
   if (difficultyIsHard) {
     bottomRow.style.display = 'none';
-    difficultyButton.innerText = 'Hard';
+    difficultyButton.innerText = 'Easy';
     maxSquareID = 3;
     difficultyIsHard = false;
   } else {
     bottomRow.style.display = 'flex';
-    difficultyButton.innerText = 'Easy';
+    difficultyButton.innerText = 'Hard';
     maxSquareID = 6;
     difficultyIsHard = true;
   }

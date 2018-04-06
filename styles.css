@@ -6,30 +6,52 @@ button {
   background: white;
   border: none;
   border-radius: 40px;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.5em;
   margin: auto;
   padding: 15px;
-  width: 100px;
+  width: 30%;
+  text-transform: uppercase;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+
 }
 
-footer, header {
+button:hover {
+  background: rgb(87, 187, 208);
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+
+
+}
+
+footer,
+header {
   background: rgb(246, 169, 28);
   height: 111px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin: -11px;
+  transition: background 0.6s;
+  -webkit-transition: background 0.6s;
+  -moz-transition: background 0.6s;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: white;
   text-align: center;
-  font-family: sans-serif;
+  font-family: Montserrat, sans-serif;
+  font-size: 3em;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
 h2 {
   text-align: center;
-  width: 222px;
+  font-size: 2em;
+  width: 20%;
 }
 
 .color-square {
@@ -38,6 +60,9 @@ h2 {
   border-radius: 10px;
   padding: 66px;
   margin: 11px;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
 }
 
 .container {
